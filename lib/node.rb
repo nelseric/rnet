@@ -1,13 +1,12 @@
 class Node
-  attr_accessor :x, :y, :size, :degree
-
-  TARGET_DISTANCE = 200
+  attr_accessor :x, :y, :size, :degree, :distance
 
   def initialize(x, y)
     @x = x
     @y = y
     @size = 5
     @degree = 0
+    @distance = 100
   end
 
   def draw(window)
@@ -21,7 +20,7 @@ class Node
 
   def update(graph)
     graph.adjacent_vertices(self).each do |target|
-      k = (Gosu.distance(x, y, target.x, target.y) / TARGET_DISTANCE) - 1
+      k = (Gosu.distance(x, y, target.x, target.y) / distance) - 1
 
       angle = Gosu.angle(x, y, target.x, target.y)
 

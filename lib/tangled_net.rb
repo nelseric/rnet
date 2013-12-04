@@ -6,8 +6,6 @@ Hasu.load("edge.rb")
 class TangledNet
   attr_accessor :size_x, :size_y, :graph
 
-  TARGET_DISTANCE = 100
-
   def initialize(size_x, size_y, num_nodes)
     @size_x = size_x
     @size_y = size_y

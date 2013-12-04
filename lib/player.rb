@@ -13,7 +13,7 @@ class Player
 
     @active = push || pull
 
-    recalculate_target vertices unless push
+    recalculate_target vertices unless active
 
     if (push || pull) && target
       angle = Gosu.angle(x, y, target.x, target.y)
