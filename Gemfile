@@ -13,5 +13,6 @@ gem 'rgl'
 gem "rvm"
 
 gem "pry"
-gem "pry-debugger"
+gem "pry-byebug"
 
+gem 'ruby-geometry'

@@ -10,8 +10,8 @@ class Edge
   def draw(window)
     if node_a and node_b
       window.draw_line(
-          node_a.x, node_a.y, node_a.color,
-          node_b.x, node_b.y, node_b.color)
+          node_a.x, node_a.y, Gosu::Color::WHITE,
+          node_b.x, node_b.y, Gosu::Color::WHITE)
     end
   end
 end

@@ -20,7 +20,10 @@ class TangledNet
         @graph.add_edge make_node, make_node
       end
     end
-    num_nodes.times
+
+    #(num_nodes/3).times do
+    #  graph.add_edge *graph.vertices.sample(2)
+    #end
 
     @graph.each_vertex do |v|
       v.degree = @graph.adjacent_vertices(v).count
@@ -28,31 +31,23 @@ class TangledNet
   end
 
   def update
-    if rand() < 0.1
-      #@graph.add_edge *@graph.vertices.sample(2)
-    end
-    if rand() < 0.02
-      @graph.add_edge @graph.vertices.sample, make_node
-    end
-    #if rand() < 0.005 and @graph.vertices.count > 4
-    #  @graph.remove_vertex @graph.vertices.sample
-    #end
-    #if rand() < 0.05
-    #  @graph.remove_edge *@graph.edges.sample
-    #end
     @graph.each_vertex do |v|
       v.degree = @graph.adjacent_vertices(v).count
     end
     @graph.each_vertex { |v| v.update @graph }
+
+    debugger
+
+    @graph.each_vertex
   end
 
   def draw(window)
 
-    @graph.each_edge do |a, b|
+    graph.each_edge do |a, b|
       Edge.new(a, b).draw(window)
     end
 
-    @graph.each_vertex do |v|
+    graph.each_vertex do |v|
       v.draw(window)
     end
   end

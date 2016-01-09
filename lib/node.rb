@@ -1,16 +1,16 @@
+require 'geometry'
+
 class Node
-  attr_accessor :x, :y, :size, :degree, :distance
+  attr_accessor :x, :y, :degree, :distance
 
   def initialize(x, y)
     @x = x
     @y = y
-    @size = 5
     @degree = 0
-    @distance = 100
+    @distance = 10
   end
 
   def draw(window)
-
     window.draw_quad(
         x - size, y - size, color,
         x - size, y + size, color,
@@ -19,48 +19,44 @@ class Node
   end
 
   def update(graph)
-    graph.adjacent_vertices(self).each do |target|
-      k = (Gosu.distance(x, y, target.x, target.y) / distance) - 1
 
-      angle = Gosu.angle(x, y, target.x, target.y)
+    # cur_adjacent = adjacent(graph)
 
-      @x += Gosu.offset_x angle, k
-      @y += Gosu.offset_y angle, k
+    # # cur_adjacent.each do |target|
+    # #   k = (Gosu.distance(x, y, target.x, target.y) - distance) / 5
 
-    end
-    if degree > 1
-      adjacent = graph.adjacent_vertices(self)
+    # #   angle = Gosu.angle(x, y, target.x, target.y)
 
-      target_x = adjacent.map(&:x).inject(&:+) / adjacent.count
+    # #   @x += Gosu.offset_x angle, k
+    # #   @y += Gosu.offset_y angle, k
 
-      target_y = adjacent.map(&:y).inject(&:+) / adjacent.count
+    # # end
 
-      k = Gosu.distance(x, y, target_x, target_y) / 25
-      angle = Gosu.angle(x, y, target_x, target_y)
 
-      @x += Gosu.offset_x angle, k
-      @y += Gosu.offset_y angle, k
-    end
+    # if degree >= 1r
 
-    if x < 0
-      @x = 0
-    elsif x > Gosu.screen_width
-      @x = Gosu.screen_width
-    end
+    #   target_x = cur_adjacent.map(&:x).inject(&:+) / cur_adjacent.count
 
-    if y < 0
-      @y = 0
-    elsif y > Gosu.screen_height
-      @y = Gosu.screen_height
-    end
+    #   target_y = cur_adjacent.map(&:y).inject(&:+) / cur_adjacent.count
+
+    #   k = [(Gosu.distance(x, y, target_x, target_y) - 4) / 10, 0].max
+      
+    #   angle = Gosu.angle(x, y, target_x, target_y)
+
+    #   if k >= 1
+    #     @x += Gosu.offset_x angle, k
+    #     @y += Gosu.offset_y angle, k
+    #   end
+    # end
+
   end
 
   def color
-    colors[degree % colors.size]
+    Gosu::Color::BLUE
   end
 
   def size
-    1
+    3
   end
 
   private
@@ -76,5 +72,7 @@ class Node
      Gosu::Color::CYAN]
   end
 
-
+  def adjacent graph
+    @adjacent ||= graph.adjacent_vertices(self)
+  end
 end

@@ -7,21 +7,21 @@ class Player
     @tgt = nil
   end
 
-  def update x, y, vertices, push, pull
+  def update x, y, graph, push, pull
     @x = x
     @y = y
 
     @active = push || pull
 
-    recalculate_target vertices unless active
+    recalculate_target graph unless active
 
     if (push || pull) && target
       angle = Gosu.angle(x, y, target.x, target.y)
-      k = Gosu.distance(x, y, target.x, target.y) / 10
+      k = Gosu.distance(x, y, target.x, target.y) 
 
       if push
-        target.x += Gosu.offset_x angle, k
-        target.y += Gosu.offset_y angle, k
+        # target.x += Gosu.offset_x angle, k
+        # target.y += Gosu.offset_y angle, k
       elsif pull
         target.x -= Gosu.offset_x angle, k
         target.y -= Gosu.offset_y angle, k
@@ -38,9 +38,9 @@ class Player
     end
   end
 
-  def recalculate_target(vertices)
+  def recalculate_target(graph)
     dist_map = {}
-    vertices.each do |v|
+    graph.each_vertex do |v|
       dist_map[Gosu.distance(self.x, self.y, v.x, v.y)] = v
     end
 
